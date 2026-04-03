@@ -491,6 +491,10 @@ div.print a:hover {
   background: #4682B4;
 }
 
+@page {
+  margin: 0;
+}
+
 @media print {
   body {
     --label-outline: none;
@@ -501,9 +505,6 @@ div.print a:hover {
     margin: 0 !important;
     padding: 0;
     overflow: visible !important;
-  }
-  @page {
-    margin: 0 !important;
   }
   .page-outer {
     overflow: visible !important;

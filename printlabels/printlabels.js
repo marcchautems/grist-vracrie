@@ -234,7 +234,7 @@ function updatePageStyle(template) {
     document.head.appendChild(styleEl);
   }
   styleEl.textContent = (template && template.landscape)
-    ? '@media print { @page { size: A4 landscape; margin: 0 !important; } }'
+    ? '@page { size: A4 landscape; margin: 0; }'
     : '';
 }
 
