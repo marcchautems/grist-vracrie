@@ -231,10 +231,14 @@ body {
 
 .ls-top-line,
 .ls-mid-line {
-  border-top: 3px solid #111;
+  border-top: 6px solid #111;
   width: 86%;
   align-self: center;
   flex-shrink: 0;
+}
+
+.ls-top-line {
+  margin-top: 15mm;
 }
 
 .ls-title-area {
@@ -260,7 +264,7 @@ body {
   height: 94mm;
   display: flex;
   flex-direction: row;
-  padding: 5mm 10mm 0 10mm;
+  padding: 5mm 10mm 0 7%;
   gap: 4mm;
 }
 
@@ -304,8 +308,8 @@ body {
 }
 
 .ls-center-image {
-  max-height: 74mm;
-  max-width: 104mm;
+  max-height: 94mm;
+  max-width: 130mm;
   object-fit: contain;
   transform: translateX(10%);
 }
@@ -330,6 +334,7 @@ body {
   font-weight: var(--top-left-weight, normal);
   color: var(--top-left-color, #000);
   text-align: center;
+  margin-bottom: 10mm;
 }
 
 .ls-qr {
