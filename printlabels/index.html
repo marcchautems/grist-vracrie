@@ -10,6 +10,9 @@
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap" rel="stylesheet">
     <script src="printlabels.js?ver=1"></script>
     <link rel="stylesheet" href="printlabels.css?ver=1">
   </head>
@@ -98,17 +101,45 @@
         <div class="page-outer" :class="'outer-' + template.id" v-for="page in arrangeLabels(labels, template, blanks)">
           <div class="labelpage" :class="'page-' + template.id">
             <template v-for="label in page">
-              <div class="label" :class="'label-' + template.id">
-                <div class="label-date" v-if="label.date">{{label.date}}</div>
-                <div class="label-top-left" v-if="label.topLeft">{{label.topLeft}}</div>
-                <div class="label-bottom-left" v-if="label.bottomLeft">{{label.bottomLeft}}</div>
-                <img class="label-qr" v-if="label.qr" :src="label.qr">
-                <div class="label-center">
-                  <div class="label-title">{{label.text}}</div>
-                  <div class="label-subtitle" v-if="label.subtitle">{{label.subtitle}}</div>
-                  <div class="label-detail" v-if="label.detail">{{label.detail}}</div>
+              <!-- A4 Landscape 1-per-sheet layout -->
+              <template v-if="template.id === 'a4landscape1'">
+                <div class="label label-a4landscape1">
+                  <div class="ls-top-line"></div>
+                  <div class="ls-title-area">
+                    <div class="ls-title">{{label.text}}</div>
+                  </div>
+                  <div class="ls-mid-line"></div>
+                  <div class="ls-bottom-area">
+                    <div class="ls-bottom-left">
+                      <div class="ls-left-text ls-detail" v-if="label.detail">{{label.detail}}</div>
+                      <div class="ls-left-text ls-subtitle" v-if="label.subtitle">{{label.subtitle}}</div>
+                      <div class="ls-left-text ls-bottom-left-text" v-if="label.bottomLeft">{{label.bottomLeft}}</div>
+                      <div class="ls-left-text ls-date" v-if="label.date">{{label.date}}</div>
+                    </div>
+                    <div class="ls-bottom-center">
+                      <img v-if="label.image" :src="label.image" class="ls-center-image">
+                    </div>
+                    <div class="ls-bottom-right">
+                      <div class="ls-code" v-if="label.topLeft">{{label.topLeft}}</div>
+                      <img v-if="label.qr" :src="label.qr" class="ls-qr">
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </template>
+              <!-- Standard label for all other templates -->
+              <template v-else>
+                <div class="label" :class="'label-' + template.id">
+                  <div class="label-date" v-if="label.date">{{label.date}}</div>
+                  <div class="label-top-left" v-if="label.topLeft">{{label.topLeft}}</div>
+                  <div class="label-bottom-left" v-if="label.bottomLeft">{{label.bottomLeft}}</div>
+                  <img class="label-qr" v-if="label.qr" :src="label.qr">
+                  <div class="label-center">
+                    <div class="label-title">{{label.text}}</div>
+                    <div class="label-subtitle" v-if="label.subtitle">{{label.subtitle}}</div>
+                    <div class="label-detail" v-if="label.detail">{{label.detail}}</div>
+                  </div>
+                </div>
+              </template>
             </template>
           </div>
         </div>

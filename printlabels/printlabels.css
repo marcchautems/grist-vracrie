@@ -217,9 +217,115 @@ body {
   --vmargin: 10mm;
   --hmargin: 10mm;
 }
-.label-a4landscape1 {
+
+/* Override generic .label styles for the landscape layout */
+.label.label-a4landscape1 {
   height: 190mm;
   width: 277mm;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 6mm 0;
+}
+
+.ls-top-line,
+.ls-mid-line {
+  border-top: 1.5px solid #111;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.ls-title-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10mm;
+}
+
+.ls-title {
+  font-family: 'Oregano', cursive;
+  font-size: 80pt;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  color: var(--title-color, #000);
+  white-space: pre-wrap;
+}
+
+.ls-bottom-area {
+  height: 68mm;
+  display: flex;
+  flex-direction: row;
+  padding: 5mm 10mm 0 10mm;
+  gap: 4mm;
+}
+
+.ls-bottom-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.5mm;
+}
+
+.ls-left-text {
+  white-space: pre-wrap;
+}
+.ls-detail {
+  font-size: 16pt;
+  font-weight: var(--detail-weight, normal);
+  color: var(--detail-color, #000);
+}
+.ls-subtitle {
+  font-size: 16pt;
+  font-weight: var(--subtitle-weight, normal);
+  color: var(--subtitle-color, #000);
+}
+.ls-bottom-left-text {
+  font-size: 16pt;
+  font-weight: var(--bottom-left-weight, normal);
+  color: var(--bottom-left-color, #000);
+}
+.ls-date {
+  font-size: 12pt;
+  font-weight: var(--date-weight, normal);
+  color: var(--date-color, #555);
+}
+
+.ls-bottom-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ls-center-image {
+  max-height: 58mm;
+  max-width: 88mm;
+  object-fit: contain;
+}
+
+.ls-bottom-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 2mm;
+}
+
+.ls-code {
+  font-size: 28pt;
+  font-weight: var(--top-left-weight, normal);
+  color: var(--top-left-color, #000);
+}
+
+.ls-qr {
+  width: var(--qr-size, 10mm);
+  height: var(--qr-size, 10mm);
+  image-rendering: pixelated;
 }
 
 .header {
