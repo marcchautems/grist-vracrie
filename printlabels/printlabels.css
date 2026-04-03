@@ -263,6 +263,7 @@ body {
 
 .ls-bottom-area {
   height: 94mm;
+  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   padding: 9mm 10mm 0 7%;

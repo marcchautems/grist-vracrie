@@ -210,11 +210,20 @@ function fitLandscapeTitle(maxSizePt) {
   let size = maxSizePt;
   titleEl.style.fontSize = size + 'pt';
 
-  // Step down until the text fits within the title area height
-  while (size > 4 && titleEl.scrollHeight > container.clientHeight) {
+  // Use getBoundingClientRect for accurate measurements even inside a scaled container
+  while (size > 4) {
+    const titleRect = titleEl.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    if (titleRect.height <= containerRect.height) break;
     size -= 1;
     titleEl.style.fontSize = size + 'pt';
   }
+}
+
+function fitLandscapeTitleWhenReady() {
+  // Run immediately, then again after fonts are loaded to catch fallback-font measurements
+  fitLandscapeTitle(data.titleSize);
+  document.fonts.ready.then(() => fitLandscapeTitle(data.titleSize));
 }
 
 function updatePageStyle(template) {
@@ -414,7 +423,7 @@ ready(function() {
     updated() {
       requestAnimationFrame(() => {
         updateSize();
-        fitLandscapeTitle(data.titleSize);
+        fitLandscapeTitleWhenReady();
       });
     },
   });
