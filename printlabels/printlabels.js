@@ -233,7 +233,9 @@ function updatePageStyle(template) {
     styleEl.id = 'page-orientation-style';
     document.head.appendChild(styleEl);
   }
-  styleEl.textContent = (template && template.landscape) ? '@page { size: A4 landscape; margin: 0; }' : '';
+  styleEl.textContent = (template && template.landscape)
+    ? '@media print { @page { size: A4 landscape; margin: 0 !important; } }'
+    : '';
 }
 
 ready(function() {

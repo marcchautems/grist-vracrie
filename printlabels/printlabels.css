@@ -348,6 +348,7 @@ body {
 }
 
 .ls-code {
+  font-family: Sans-Serif;
   font-size: var(--top-left-size, 28pt);
   font-weight: var(--top-left-weight, normal);
   color: var(--top-left-color, #000);
