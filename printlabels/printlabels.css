@@ -321,8 +321,8 @@ body {
 }
 
 .ls-center-image {
-  width: 88mm;
-  height: 72mm;
+  width: 70mm;
+  height: 58mm;
   object-fit: contain;
   transform: translateX(10%);
 }
