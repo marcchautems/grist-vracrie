@@ -220,6 +220,7 @@ body {
 
 /* Override generic .label styles for the landscape layout */
 .label.label-a4landscape1 {
+  font-family: 'Raleway', sans-serif;
   height: 190mm;
   width: 277mm;
   display: flex;
@@ -283,7 +284,6 @@ body {
 
 .ls-left-text {
   white-space: pre-wrap;
-  font-family: 'Raleway', sans-serif;
 }
 .ls-detail {
   font-size: var(--detail-size, 16pt);
@@ -348,7 +348,6 @@ body {
 }
 
 .ls-code {
-  font-family: 'Raleway', sans-serif;
   font-size: var(--top-left-size, 28pt);
   font-weight: var(--top-left-weight, normal);
   color: var(--top-left-color, #000);
