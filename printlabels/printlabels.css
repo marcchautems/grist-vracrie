@@ -256,7 +256,7 @@ body {
 }
 
 .ls-bottom-area {
-  height: 68mm;
+  height: 80mm;
   display: flex;
   flex-direction: row;
   padding: 5mm 10mm 0 10mm;
