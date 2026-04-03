@@ -242,7 +242,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10mm;
+  overflow: hidden;
 }
 
 .ls-title {
@@ -253,10 +253,11 @@ body {
   text-align: center;
   color: var(--title-color, #000);
   white-space: pre-wrap;
+  max-width: 84%;
 }
 
 .ls-bottom-area {
-  height: 80mm;
+  height: 94mm;
   display: flex;
   flex-direction: row;
   padding: 5mm 10mm 0 10mm;
@@ -300,11 +301,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 10%;
 }
 
 .ls-center-image {
-  max-height: 58mm;
-  max-width: 88mm;
+  max-height: 74mm;
+  max-width: 104mm;
   object-fit: contain;
 }
 

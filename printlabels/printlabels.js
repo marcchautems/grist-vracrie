@@ -199,6 +199,24 @@ function updateSize() {
   document.body.style.setProperty('--page-scaling', window.innerWidth / pageWidth);
 }
 
+function fitLandscapeTitle(maxSizePt) {
+  if (!data.template || data.template.id !== 'a4landscape1') return;
+  const titleEl = document.querySelector('.ls-title');
+  if (!titleEl) return;
+  const container = titleEl.closest('.ls-title-area');
+  if (!container) return;
+
+  // Start at the user-defined maximum size
+  let size = maxSizePt;
+  titleEl.style.fontSize = size + 'pt';
+
+  // Step down until the text fits within the title area height
+  while (size > 4 && titleEl.scrollHeight > container.clientHeight) {
+    size -= 1;
+    titleEl.style.fontSize = size + 'pt';
+  }
+}
+
 function updatePageStyle(template) {
   let styleEl = document.getElementById('page-orientation-style');
   if (!styleEl) {
@@ -393,6 +411,6 @@ ready(function() {
         await grist.widgetApi.setOption('centerHOffset', this.centerHOffset);
       }
     },
-    updated: () => setTimeout(updateSize, 0),
+    updated() { setTimeout(updateSize, 0); setTimeout(() => fitLandscapeTitle(this.titleSize), 0); },
   });
 });
