@@ -1,0 +1,382 @@
+body {
+  font-family: Sans-Serif;
+  padding: 0;
+  margin: 0;
+  --label-outline: 0 0 0 1px var(--grist-theme-decoration, #d9d9d9);
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.status {
+  padding: 8px;
+  margin-top: 40px;
+  color: var(--grist-theme-info, #3b82f6);
+}
+
+.label-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(var(--center-hoffset, 0mm), var(--center-offset, 0mm));
+}
+
+.label-title {
+  white-space: pre-wrap;
+  text-align: center;
+  font-size: var(--title-size, 12pt);
+  font-weight: var(--title-weight, bold);
+  color: var(--title-color, #000000);
+}
+
+.label-subtitle {
+  white-space: pre-wrap;
+  text-align: center;
+  font-size: var(--subtitle-size, 10pt);
+  font-weight: var(--subtitle-weight, normal);
+  color: var(--subtitle-color, #000000);
+  margin-top: 2px;
+}
+
+.label-detail {
+  white-space: pre-wrap;
+  text-align: center;
+  font-size: var(--detail-size, 8pt);
+  font-weight: var(--detail-weight, normal);
+  color: var(--detail-color, #000000);
+  margin-top: 2px;
+}
+
+.page-outer {
+  --page-width: 8.5in;
+  --page-height: 11in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--page-width);
+  height: var(--page-height);
+}
+
+@media not print {
+  .page-outer {
+    overflow: hidden;
+    width: calc(var(--page-width) * var(--page-scaling, 1));
+    height: calc(var(--page-height) * var(--page-scaling, 1));
+  }
+  .labelpage {
+    transform: scale(var(--page-scaling, 1));
+  }
+}
+
+.label {
+  padding-top: var(--label-pad-top, 2mm);
+  padding-bottom: var(--label-pad-bottom, 2mm);
+  padding-left: var(--label-pad-left, 2mm);
+  padding-right: var(--label-pad-right, 2mm);
+  border-radius: 0.06in;
+  background-color: white;
+  color: black;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: bottom;
+  box-shadow: var(--label-outline);
+  position: relative;
+}
+
+.label-date {
+  position: absolute;
+  top: var(--label-pad-top, 2mm);
+  right: var(--label-pad-right, 2mm);
+  font-size: var(--date-size, 7pt);
+  font-weight: var(--date-weight, normal);
+  color: var(--date-color, #555555);
+}
+
+.label-top-left {
+  position: absolute;
+  top: var(--label-pad-top, 2mm);
+  left: var(--label-pad-left, 2mm);
+  font-size: var(--top-left-size, 7pt);
+  font-weight: var(--top-left-weight, normal);
+  color: var(--top-left-color, #555555);
+}
+
+.label-bottom-left {
+  position: absolute;
+  bottom: var(--label-pad-bottom, 2mm);
+  left: var(--label-pad-left, 2mm);
+  font-size: var(--bottom-left-size, 7pt);
+  font-weight: var(--bottom-left-weight, normal);
+  color: var(--bottom-left-color, #555555);
+}
+
+.label-qr {
+  position: absolute;
+  bottom: var(--label-pad-bottom, 2mm);
+  right: var(--label-pad-right, 2mm);
+  width: var(--qr-size, 10mm);
+  height: var(--qr-size, 10mm);
+  image-rendering: pixelated;
+}
+
+.labelpage {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-content: space-between;
+  height: calc(var(--page-height) - 2 * var(--vmargin, 0));
+  width: calc(var(--page-width) - 2 * var(--hmargin, 0));
+  min-height: calc(var(--page-height) - 2 * var(--vmargin, 0));
+  min-width: calc(var(--page-width) - 2 * var(--hmargin, 0));
+}
+
+/*
+ * Firefox includes unknown fixed margins; to work around it, we center content in the page, and
+ * set it in @media print to 100%, which may be less than the page due to these margins.
+ */
+
+.page-labels8 {
+  --vmargin: 0.5833in;
+  --hmargin: 0.6875in;
+}
+.label-labels8 {
+  height: 2.3333in;
+  width: 3.375in;
+}
+
+.page-labels10 {
+  --vmargin: 0.5in;
+  --hmargin: 0.156in;
+}
+.label-labels10 {
+  height: 2in;
+  width: 4in;
+}
+
+.page-labels20 {
+  --vmargin: 0.5in;
+  --hmargin: 0.167in;
+}
+.label-labels20 {
+  height: 1in;
+  width: 4in;
+}
+.page-labels30 {
+  --vmargin: 0.5in;
+  --hmargin: 0.1875in;
+}
+.label-labels30 {
+  height: 1in;
+  width: 2.625in;
+}
+
+.page-labels60 {
+  --vmargin: 0.875in;
+  --hmargin: 0.5in;
+}
+.label-labels60 {
+  height: 0.5in;
+  width: 1.75in;
+}
+
+.page-labels80 {
+  --vmargin: 0.5in;
+  --hmargin: 0.3in;
+}
+.label-labels80 {
+  height: 0.5in;
+  width: 1.75in;
+}
+
+/* A4 templates (210mm x 297mm) */
+.outer-a4labels24 {
+  --page-width: 210mm;
+  --page-height: 297mm;
+}
+.page-a4labels24 {
+  --vmargin: 13.3mm;
+  --hmargin: 7.65mm;
+}
+.label-a4labels24 {
+  height: 33.8mm;
+  width: 64.6mm;
+}
+
+/* A4 Landscape (297mm x 210mm) - 1 per sheet */
+.outer-a4landscape1 {
+  --page-width: 297mm;
+  --page-height: 210mm;
+}
+.page-a4landscape1 {
+  --vmargin: 10mm;
+  --hmargin: 10mm;
+}
+.label-a4landscape1 {
+  height: 190mm;
+  width: 277mm;
+}
+
+.header {
+  margin: 8px;
+  font-size: 11pt;
+  color: var(--grist-theme-secondary, #929299);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#labeltype {
+  font-size: 11pt;
+  padding: 4px;
+  background-color: var(--grist-theme-bg-default, white);
+  border-color: var(--grist-theme-decoration, #d9d9d9);
+  color: var(--grist-theme-body, #262633);
+}
+#options-btn {
+  font-size: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  margin: 0 8px;
+}
+#options-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+#options-popup {
+  border: 1px solid var(--grist-theme-decoration, #d9d9d9);
+  box-shadow: 0 2px 20px 0 var(--grist-theme-menu-shadow, rgba(38, 38, 51, 0.6));
+  background-color: var(--grist-theme-bg-default, white);
+  max-width: max-content;
+  position: absolute;
+  right: 8px;
+  top: 40px;
+  padding: 16px;
+  color: var(--grist-theme-body, #262633);
+}
+#blanks {
+  font-size: 11pt;
+  width: 4em;
+  margin-left: 1em;
+  color: var(--grist-theme-emphasis, #000);
+  background-color: var(--grist-theme-bg-default, #fff);
+  border: 1px solid var(--grist-theme-decoration, #d9d9d9);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.options-section {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 10pt;
+}
+.options-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+.options-row label {
+  font-size: 10pt;
+}
+.pad-input {
+  font-size: 10pt;
+  width: 4em;
+  margin-left: 4px;
+  color: var(--grist-theme-emphasis, #000);
+  background-color: var(--grist-theme-bg-default, #fff);
+  border: 1px solid var(--grist-theme-decoration, #d9d9d9);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.font-table {
+  border-collapse: collapse;
+  font-size: 10pt;
+  margin-top: 4px;
+}
+.font-table th {
+  font-weight: normal;
+  color: var(--grist-theme-secondary, #929299);
+  padding: 2px 6px;
+  text-align: left;
+}
+.font-table td {
+  padding: 2px 6px;
+}
+.font-size-input {
+  width: 3.5em;
+  font-size: 10pt;
+  color: var(--grist-theme-emphasis, #000);
+  background-color: var(--grist-theme-bg-default, #fff);
+  border: 1px solid var(--grist-theme-decoration, #d9d9d9);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.font-color-input {
+  width: 28px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--grist-theme-decoration, #d9d9d9);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Print button (inspired by invoices widget) */
+div.print {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+}
+div.print a {
+  background: #16B378;
+  display: block;
+  font-size: 200%;
+  color: white;
+  text-decoration: none;
+  padding: 0.25em 0.5em 0.25em 0.25em;
+  border-top-right-radius: 0.5em;
+  text-transform: uppercase;
+}
+div.print a:hover {
+  background: #4682B4;
+}
+
+@media print {
+  body {
+    --label-outline: none;
+  }
+  html, body, #app {
+    height: auto !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+    overflow: visible !important;
+  }
+  @page {
+    margin: 0 !important;
+  }
+  .page-outer {
+    overflow: visible !important;
+    page-break-after: always;
+  }
+  .page-outer:last-child {
+    page-break-after: auto;
+  }
+  .header, #labeltype, #options-container, div.print {
+    display: none !important;
+  }
+  .label {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
