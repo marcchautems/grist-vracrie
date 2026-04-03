@@ -90,9 +90,8 @@ const LabelDetail = 'LabelDetail';
 const LabelBottomLeft = 'LabelBottomLeft';
 const LabelQR = 'LabelQR';
 const LabelSubtitle = 'LabelSubtitle';
-const LabelImage = 'LabelImage';
 
-const emptyLabel = {text: "", subtitle: "", detail: "", date: "", topLeft: "", bottomLeft: "", qr: "", image: ""};
+const emptyLabel = {text: "", subtitle: "", detail: "", date: "", topLeft: "", bottomLeft: "", qr: ""};
 
 function arrangeLabels(labels, template, blanks) {
   const pages = [];
@@ -168,7 +167,6 @@ function updateRecords() {
     const haveTopLeft = rows[0].hasOwnProperty(LabelTopLeft);
     const haveBottomLeft = rows[0].hasOwnProperty(LabelBottomLeft);
     const haveQR = rows[0].hasOwnProperty(LabelQR);
-    const haveImage = rows[0].hasOwnProperty(LabelImage);
     const labels = [];
     for (const r of rows) {
       // parseFloat to be generous about the type of LabelCount. Text will be accepted.
@@ -179,9 +177,8 @@ function updateRecords() {
       const topLeft = haveTopLeft ? (r[LabelTopLeft] || '') : '';
       const bottomLeft = haveBottomLeft ? (r[LabelBottomLeft] || '') : '';
       const qr = haveQR ? generateQR(r[LabelQR]) : '';
-      const image = haveImage ? (r[LabelImage] || '') : '';
       for (let i = 0; i < count; i++) {
-        labels.push({text: r[LabelText], subtitle: subtitle, detail: detail, date: date, topLeft: topLeft, bottomLeft: bottomLeft, qr: qr, image: image});
+        labels.push({text: r[LabelText], subtitle: subtitle, detail: detail, date: date, topLeft: topLeft, bottomLeft: bottomLeft, qr: qr});
       }
     }
     data.labels = labels;
@@ -260,12 +257,6 @@ ready(function() {
       {
         name: LabelQR,
         title: "QR code link",
-        type: "Any",
-        optional: true
-      },
-      {
-        name: LabelImage,
-        title: "Center image URL",
         type: "Any",
         optional: true
       }

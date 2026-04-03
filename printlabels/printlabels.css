@@ -231,8 +231,9 @@ body {
 
 .ls-top-line,
 .ls-mid-line {
-  border-top: 1.5px solid #111;
-  width: 100%;
+  border-top: 3px solid #111;
+  width: 86%;
+  align-self: center;
   flex-shrink: 0;
 }
 
@@ -246,7 +247,7 @@ body {
 
 .ls-title {
   font-family: 'Oregano', cursive;
-  font-size: 80pt;
+  font-size: var(--title-size, 80pt);
   font-weight: 400;
   line-height: 1;
   text-align: center;
@@ -274,22 +275,22 @@ body {
   white-space: pre-wrap;
 }
 .ls-detail {
-  font-size: 16pt;
+  font-size: var(--detail-size, 16pt);
   font-weight: var(--detail-weight, normal);
   color: var(--detail-color, #000);
 }
 .ls-subtitle {
-  font-size: 16pt;
+  font-size: var(--subtitle-size, 16pt);
   font-weight: var(--subtitle-weight, normal);
   color: var(--subtitle-color, #000);
 }
 .ls-bottom-left-text {
-  font-size: 16pt;
+  font-size: var(--bottom-left-size, 16pt);
   font-weight: var(--bottom-left-weight, normal);
   color: var(--bottom-left-color, #000);
 }
 .ls-date {
-  font-size: 12pt;
+  font-size: var(--date-size, 12pt);
   font-weight: var(--date-weight, normal);
   color: var(--date-color, #555);
 }
@@ -317,7 +318,7 @@ body {
 }
 
 .ls-code {
-  font-size: 28pt;
+  font-size: var(--top-left-size, 28pt);
   font-weight: var(--top-left-weight, normal);
   color: var(--top-left-color, #000);
 }
