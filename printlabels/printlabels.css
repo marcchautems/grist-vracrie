@@ -238,7 +238,7 @@ body {
 }
 
 .ls-top-line {
-  margin-top: 15mm;
+  margin-top: 8mm;
 }
 
 .ls-title-area {
@@ -301,15 +301,16 @@ body {
 }
 
 .ls-bottom-center {
-  flex: 1;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .ls-center-image {
-  max-height: 94mm;
-  max-width: 130mm;
+  width: 110mm;
+  height: 90mm;
   object-fit: contain;
   transform: translateX(10%);
 }
@@ -334,7 +335,7 @@ body {
   font-weight: var(--top-left-weight, normal);
   color: var(--top-left-color, #000);
   text-align: center;
-  margin-bottom: 10mm;
+  margin-bottom: 5mm;
 }
 
 .ls-qr {
