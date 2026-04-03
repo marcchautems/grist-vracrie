@@ -243,6 +243,7 @@ body {
 
 .ls-title-area {
   flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -264,7 +265,7 @@ body {
   height: 94mm;
   display: flex;
   flex-direction: row;
-  padding: 5mm 10mm 0 7%;
+  padding: 9mm 10mm 0 7%;
   gap: 4mm;
   position: relative;
 }
@@ -321,10 +322,10 @@ body {
 }
 
 .ls-center-image {
-  width: 70mm;
-  height: 58mm;
+  width: 77mm;
+  height: 64mm;
   object-fit: contain;
-  transform: translateX(10%);
+  transform: translate(calc(10% + 10mm), 5mm);
 }
 
 .ls-bottom-right {

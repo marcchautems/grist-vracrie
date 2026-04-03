@@ -411,6 +411,11 @@ ready(function() {
         await grist.widgetApi.setOption('centerHOffset', this.centerHOffset);
       }
     },
-    updated() { setTimeout(updateSize, 0); setTimeout(() => fitLandscapeTitle(this.titleSize), 0); },
+    updated() {
+      requestAnimationFrame(() => {
+        updateSize();
+        fitLandscapeTitle(data.titleSize);
+      });
+    },
   });
 });
