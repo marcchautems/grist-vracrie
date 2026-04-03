@@ -110,15 +110,18 @@
                   </div>
                   <div class="ls-mid-line"></div>
                   <div class="ls-bottom-area">
+                    <!-- Bee in background, absolutely positioned -->
+                    <div class="ls-bottom-center">
+                      <img src="bee_vracrie.png" class="ls-center-image">
+                    </div>
+                    <!-- Flex spacer to preserve left/center/right proportions -->
                     <div class="ls-bottom-left">
                       <div class="ls-left-text ls-detail" v-if="label.detail">{{label.detail}}</div>
                       <div class="ls-left-text ls-subtitle" v-if="label.subtitle">{{label.subtitle}}</div>
                       <div class="ls-left-text ls-bottom-left-text" v-if="label.bottomLeft">{{label.bottomLeft}}</div>
                       <div class="ls-left-text ls-date" v-if="label.date">{{label.date}}</div>
                     </div>
-                    <div class="ls-bottom-center">
-                      <img src="bee_vracrie.png" class="ls-center-image">
-                    </div>
+                    <div class="ls-bottom-spacer"></div>
                     <div class="ls-bottom-right">
                       <div class="ls-code-qr">
                         <div class="ls-code" v-if="label.topLeft">{{label.topLeft}}</div>

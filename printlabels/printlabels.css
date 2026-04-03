@@ -303,6 +303,10 @@ body {
   color: var(--date-color, #555);
 }
 
+.ls-bottom-spacer {
+  flex: 1;
+}
+
 .ls-bottom-center {
   position: absolute;
   top: 0;
