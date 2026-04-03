@@ -120,8 +120,10 @@
                       <img src="bee_vracrie.png" class="ls-center-image">
                     </div>
                     <div class="ls-bottom-right">
-                      <div class="ls-code" v-if="label.topLeft">{{label.topLeft}}</div>
-                      <img v-if="label.qr" :src="label.qr" class="ls-qr">
+                      <div class="ls-code-qr">
+                        <div class="ls-code" v-if="label.topLeft">{{label.topLeft}}</div>
+                        <img v-if="label.qr" :src="label.qr" class="ls-qr">
+                      </div>
                     </div>
                   </div>
                 </div>
