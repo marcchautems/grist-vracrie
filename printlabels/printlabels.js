@@ -70,7 +70,7 @@ let data = {
   titleSize: 12, titleColor: '#000000', titleBold: true,
   subtitleSize: 10, subtitleColor: '#000000', subtitleBold: false,
   detailSize: 8, detailColor: '#000000', detailBold: false,
-  dateSize: 7, dateColor: '#555555', dateBold: false,
+  dateSize: 16, dateColor: '#000000', dateBold: false,
   topLeftSize: 7, topLeftColor: '#555555', topLeftBold: false,
   bottomLeftSize: 7, bottomLeftColor: '#555555', bottomLeftBold: false,
   // QR code size in mm.
@@ -241,9 +241,80 @@ function fitLandscapeTitle(maxSizePt) {
   document.body.removeChild(probe);
 }
 
-function fitLandscapeTitleWhenReady() {
+function fitLandscapeLines() {
+  if (!data.template || data.template.id !== 'a4landscape1') return;
+  const containers = document.querySelectorAll('.ls-bottom-left');
+  if (!containers.length) return;
+
+  const availableH = containers[0].offsetHeight;
+  const availableW = containers[0].offsetWidth;
+  if (!availableH || !availableW) return;
+
+  const baseSizeMap = {
+    'ls-detail': data.detailSize,
+    'ls-subtitle': data.subtitleSize,
+    'ls-bottom-left-text': data.bottomLeftSize,
+    'ls-date': data.dateSize,
+  };
+  const gapPx = 1.5 * 96 / 25.4; // 1.5mm in CSS px
+
+  containers.forEach(container => {
+    const lineEls = Array.from(container.querySelectorAll('.ls-left-text'))
+      .filter(el => el.textContent.trim());
+    if (!lineEls.length) return;
+
+    const lines = lineEls.map(el => {
+      let baseSize = data.detailSize;
+      for (const [cls, size] of Object.entries(baseSizeMap)) {
+        if (el.classList.contains(cls)) { baseSize = size; break; }
+      }
+      return { el, baseSize };
+    });
+
+    const probe = document.createElement('div');
+    probe.style.cssText = [
+      'position:absolute', 'visibility:hidden', 'pointer-events:none',
+      'top:-9999px', 'left:-9999px',
+      `width:${availableW}px`,
+      'display:flex', 'flex-direction:column',
+      `gap:${gapPx}px`,
+      'font-family:Raleway,sans-serif',
+    ].join(';');
+    lines.forEach(({ el, baseSize }) => {
+      const div = document.createElement('div');
+      div.style.cssText = `white-space:pre-wrap;font-size:${baseSize}pt;`;
+      div.textContent = el.textContent;
+      probe.appendChild(div);
+    });
+    document.body.appendChild(probe);
+
+    let scale = 1.0;
+    if (probe.offsetHeight > availableH) {
+      let lo = 0.1, hi = 1.0;
+      while (hi - lo > 0.005) {
+        const mid = (lo + hi) / 2;
+        Array.from(probe.children).forEach((div, i) => {
+          div.style.fontSize = (lines[i].baseSize * mid) + 'pt';
+        });
+        if (probe.offsetHeight <= availableH) { lo = mid; } else { hi = mid; }
+      }
+      scale = lo;
+    }
+    document.body.removeChild(probe);
+
+    lines.forEach(({ el, baseSize }) => {
+      el.style.fontSize = (baseSize * scale) + 'pt';
+    });
+  });
+}
+
+function fitLandscapeAllWhenReady() {
   fitLandscapeTitle(data.titleSize);
-  document.fonts.ready.then(() => fitLandscapeTitle(data.titleSize));
+  fitLandscapeLines();
+  document.fonts.ready.then(() => {
+    fitLandscapeTitle(data.titleSize);
+    fitLandscapeLines();
+  });
 }
 
 function updatePageStyle(template) {
@@ -332,8 +403,8 @@ ready(function() {
       data.detailSize = options.detailSize != null ? options.detailSize : 8;
       data.detailColor = options.detailColor || '#000000';
       data.detailBold = options.detailBold != null ? options.detailBold : false;
-      data.dateSize = options.dateSize != null ? options.dateSize : 7;
-      data.dateColor = options.dateColor || '#555555';
+      data.dateSize = options.dateSize != null ? options.dateSize : 16;
+      data.dateColor = options.dateColor || '#000000';
       data.dateBold = options.dateBold != null ? options.dateBold : false;
       data.topLeftSize = options.topLeftSize != null ? options.topLeftSize : 7;
       data.topLeftColor = options.topLeftColor || '#555555';
@@ -354,7 +425,7 @@ ready(function() {
       data.titleSize = 12; data.titleColor = '#000000'; data.titleBold = true;
       data.subtitleSize = 10; data.subtitleColor = '#000000'; data.subtitleBold = false;
       data.detailSize = 8; data.detailColor = '#000000'; data.detailBold = false;
-      data.dateSize = 7; data.dateColor = '#555555'; data.dateBold = false;
+      data.dateSize = 16; data.dateColor = '#000000'; data.dateBold = false;
       data.topLeftSize = 7; data.topLeftColor = '#555555'; data.topLeftBold = false;
       data.bottomLeftSize = 7; data.bottomLeftColor = '#555555'; data.bottomLeftBold = false;
       data.qrSize = 10;
@@ -380,7 +451,7 @@ ready(function() {
         updateRecords();
       },
       labels() {
-        this.$nextTick(fitLandscapeTitleWhenReady);
+        this.$nextTick(fitLandscapeAllWhenReady);
       },
       template(val) {
         pageWidth = null;
@@ -451,7 +522,7 @@ ready(function() {
     updated() {
       requestAnimationFrame(() => {
         updateSize();
-        fitLandscapeTitleWhenReady();
+        fitLandscapeAllWhenReady();
       });
     },
   });

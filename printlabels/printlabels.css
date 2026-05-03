@@ -301,9 +301,9 @@ body {
   color: var(--bottom-left-color, #000);
 }
 .ls-date {
-  font-size: var(--date-size, 12pt);
+  font-size: var(--date-size, 16pt);
   font-weight: var(--date-weight, normal);
-  color: var(--date-color, #555);
+  color: var(--date-color, #000);
 }
 
 .ls-bottom-spacer {
