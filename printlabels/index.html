@@ -90,6 +90,10 @@
           <div class="options-row">
             <label>Size (mm) <input type="number" class="pad-input" v-model.number="qrSize" @change="save()" min="1" step="1"></label>
           </div>
+          <div class="options-section">Landscape label</div>
+          <div class="options-row">
+            <label><input type="checkbox" v-model="showBee" @change="save()"> Show bee image</label>
+          </div>
           <div class="options-section">Center block position</div>
           <div class="options-row">
             <label>Vertical (mm) <input type="number" class="pad-input" v-model.number="centerOffset" @change="save()" step="0.5"></label>
@@ -111,7 +115,7 @@
                   <div class="ls-mid-line"></div>
                   <div class="ls-bottom-area">
                     <!-- Bee in background, absolutely positioned -->
-                    <div class="ls-bottom-center">
+                    <div class="ls-bottom-center" v-if="showBee">
                       <img src="bee_vracrie.png" class="ls-center-image">
                     </div>
                     <!-- Flex spacer to preserve left/center/right proportions -->

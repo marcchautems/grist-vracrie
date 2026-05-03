@@ -78,7 +78,9 @@ let data = {
   // Vertical offset of the center block in mm (positive = toward top, negative = toward bottom).
   centerOffset: 0,
   // Horizontal offset of the center block in mm (positive = toward right, negative = toward left).
-  centerHOffset: 0
+  centerHOffset: 0,
+  // Show decorative bee image on landscape label.
+  showBee: true
 };
 
 // Columns we expect
@@ -324,6 +326,7 @@ ready(function() {
       data.qrSize = options.qrSize != null ? options.qrSize : 10;
       data.centerOffset = options.centerOffset != null ? options.centerOffset : 0;
       data.centerHOffset = options.centerHOffset != null ? options.centerHOffset : 0;
+      data.showBee = options.showBee != null ? options.showBee : true;
     } else {
       // Revert to defaults.
       data.template = defaultTemplate;
@@ -339,6 +342,7 @@ ready(function() {
       data.qrSize = 10;
       data.centerOffset = 0;
       data.centerHOffset = 0;
+      data.showBee = true;
     }
   })
   // Update the widget anytime the document data changes.
@@ -420,6 +424,7 @@ ready(function() {
         await grist.widgetApi.setOption('qrSize', this.qrSize);
         await grist.widgetApi.setOption('centerOffset', this.centerOffset);
         await grist.widgetApi.setOption('centerHOffset', this.centerHOffset);
+        await grist.widgetApi.setOption('showBee', this.showBee);
       }
     },
     updated() {
