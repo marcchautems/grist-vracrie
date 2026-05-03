@@ -202,10 +202,13 @@ function updateSize() {
 }
 
 function fitLandscapeTitle(maxSizePt) {
+  console.log('[fitLandscapeTitle] called, template:', data.template && data.template.id);
   if (!data.template || data.template.id !== 'a4landscape1') return;
   const titleEl = document.querySelector('.ls-title');
+  console.log('[fitLandscapeTitle] titleEl:', titleEl);
   if (!titleEl) return;
   const container = titleEl.closest('.ls-title-area');
+  console.log('[fitLandscapeTitle] container:', container);
   if (!container) return;
 
   const availableH = container.offsetHeight;
