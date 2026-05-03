@@ -208,15 +208,16 @@ function fitLandscapeTitle(maxSizePt) {
   const container = titleEl.closest('.ls-title-area');
   if (!container) return;
 
-  // Get available dimensions from the container (CSS pixels, unaffected by scaling).
   const availableH = container.offsetHeight;
-  const availableW = container.offsetWidth * 0.84; // 84% max-width constraint
+  const availableW = container.offsetWidth * 0.84;
+  console.log('[fitLandscapeTitle] maxSizePt:', maxSizePt,
+    'availableH:', availableH, 'availableW:', availableW,
+    'text:', titleEl.textContent);
   if (!availableH || !availableW) return;
 
-  // Measure text height using an offscreen probe so overflow:hidden doesn't interfere.
   const probe = document.createElement('div');
   probe.style.cssText = [
-    'position:fixed', 'visibility:hidden', 'pointer-events:none',
+    'position:absolute', 'visibility:hidden', 'pointer-events:none',
     'top:-9999px', 'left:-9999px',
     `width:${availableW}px`,
     'white-space:pre-wrap',
@@ -228,7 +229,6 @@ function fitLandscapeTitle(maxSizePt) {
   probe.textContent = titleEl.textContent;
   document.body.appendChild(probe);
 
-  // Binary search for the largest font size that fits.
   let lo = 4, hi = maxSizePt;
   while (hi - lo > 0.5) {
     const mid = (lo + hi) / 2;
@@ -237,6 +237,7 @@ function fitLandscapeTitle(maxSizePt) {
   }
   document.body.removeChild(probe);
 
+  console.log('[fitLandscapeTitle] result:', lo + 'pt');
   titleEl.style.fontSize = lo + 'pt';
 }
 
@@ -377,6 +378,9 @@ ready(function() {
     watch : {
       rows() {
         updateRecords();
+      },
+      labels() {
+        this.$nextTick(fitLandscapeTitleWhenReady);
       },
       template(val) {
         pageWidth = null;
