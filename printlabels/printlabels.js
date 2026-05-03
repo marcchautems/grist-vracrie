@@ -202,22 +202,18 @@ function updateSize() {
 }
 
 function fitLandscapeTitle(maxSizePt) {
-  console.log('[fitLandscapeTitle] called, template:', data.template && data.template.id);
   if (!data.template || data.template.id !== 'a4landscape1') return;
-  const titleEl = document.querySelector('.ls-title');
-  console.log('[fitLandscapeTitle] titleEl:', titleEl);
-  if (!titleEl) return;
-  const container = titleEl.closest('.ls-title-area');
-  console.log('[fitLandscapeTitle] container:', container);
-  if (!container) return;
+  const titleEls = document.querySelectorAll('.ls-title');
+  if (!titleEls.length) return;
 
-  const availableH = container.offsetHeight;
-  const availableW = container.offsetWidth * 0.84;
-  console.log('[fitLandscapeTitle] maxSizePt:', maxSizePt,
-    'availableH:', availableH, 'availableW:', availableW,
-    'text:', titleEl.textContent);
+  // All containers have the same dimensions — measure from the first.
+  const firstContainer = titleEls[0].closest('.ls-title-area');
+  if (!firstContainer) return;
+  const availableH = firstContainer.offsetHeight;
+  const availableW = firstContainer.offsetWidth * 0.84;
   if (!availableH || !availableW) return;
 
+  // Reusable probe element.
   const probe = document.createElement('div');
   probe.style.cssText = [
     'position:absolute', 'visibility:hidden', 'pointer-events:none',
@@ -229,19 +225,20 @@ function fitLandscapeTitle(maxSizePt) {
     'line-height:1',
     'text-align:center',
   ].join(';');
-  probe.textContent = titleEl.textContent;
   document.body.appendChild(probe);
 
-  let lo = 4, hi = maxSizePt;
-  while (hi - lo > 0.5) {
-    const mid = (lo + hi) / 2;
-    probe.style.fontSize = mid + 'pt';
-    if (probe.offsetHeight <= availableH) { lo = mid; } else { hi = mid; }
-  }
-  document.body.removeChild(probe);
+  titleEls.forEach(titleEl => {
+    probe.textContent = titleEl.textContent;
+    let lo = 4, hi = maxSizePt;
+    while (hi - lo > 0.5) {
+      const mid = (lo + hi) / 2;
+      probe.style.fontSize = mid + 'pt';
+      if (probe.offsetHeight <= availableH) { lo = mid; } else { hi = mid; }
+    }
+    titleEl.style.fontSize = lo + 'pt';
+  });
 
-  console.log('[fitLandscapeTitle] result:', lo + 'pt');
-  titleEl.style.fontSize = lo + 'pt';
+  document.body.removeChild(probe);
 }
 
 function fitLandscapeTitleWhenReady() {
