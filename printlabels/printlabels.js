@@ -208,22 +208,22 @@ function fitLandscapeTitle(maxSizePt) {
   const container = titleEl.closest('.ls-title-area');
   if (!container) return;
 
-  // Start at the user-defined maximum size
+  // Set font to minimum so the flex container fills its allocated height,
+  // then capture that height as the available space (same unit: visual px).
+  titleEl.style.fontSize = '4pt';
+  const availableH = container.getBoundingClientRect().height;
+
+  // Step down from max until the title fits within the available height.
   let size = maxSizePt;
   titleEl.style.fontSize = size + 'pt';
-
-  // Use getBoundingClientRect for accurate measurements even inside a scaled container
   while (size > 4) {
-    const titleRect = titleEl.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    if (titleRect.height <= containerRect.height) break;
+    if (titleEl.getBoundingClientRect().height <= availableH) break;
     size -= 1;
     titleEl.style.fontSize = size + 'pt';
   }
 }
 
 function fitLandscapeTitleWhenReady() {
-  // Run immediately, then again after fonts are loaded to catch fallback-font measurements
   fitLandscapeTitle(data.titleSize);
   document.fonts.ready.then(() => fitLandscapeTitle(data.titleSize));
 }
