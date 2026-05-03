@@ -208,19 +208,36 @@ function fitLandscapeTitle(maxSizePt) {
   const container = titleEl.closest('.ls-title-area');
   if (!container) return;
 
-  // Set font to minimum so the flex container fills its allocated height,
-  // then capture that height as the available space (same unit: visual px).
-  titleEl.style.fontSize = '4pt';
-  const availableH = container.getBoundingClientRect().height;
+  // Get available dimensions from the container (CSS pixels, unaffected by scaling).
+  const availableH = container.offsetHeight;
+  const availableW = container.offsetWidth * 0.84; // 84% max-width constraint
+  if (!availableH || !availableW) return;
 
-  // Step down from max until the title fits within the available height.
-  let size = maxSizePt;
-  titleEl.style.fontSize = size + 'pt';
-  while (size > 4) {
-    if (titleEl.getBoundingClientRect().height <= availableH) break;
-    size -= 1;
-    titleEl.style.fontSize = size + 'pt';
+  // Measure text height using an offscreen probe so overflow:hidden doesn't interfere.
+  const probe = document.createElement('div');
+  probe.style.cssText = [
+    'position:fixed', 'visibility:hidden', 'pointer-events:none',
+    'top:-9999px', 'left:-9999px',
+    `width:${availableW}px`,
+    'white-space:pre-wrap',
+    'font-family:Oregano,cursive',
+    'font-weight:400',
+    'line-height:1',
+    'text-align:center',
+  ].join(';');
+  probe.textContent = titleEl.textContent;
+  document.body.appendChild(probe);
+
+  // Binary search for the largest font size that fits.
+  let lo = 4, hi = maxSizePt;
+  while (hi - lo > 0.5) {
+    const mid = (lo + hi) / 2;
+    probe.style.fontSize = mid + 'pt';
+    if (probe.offsetHeight <= availableH) { lo = mid; } else { hi = mid; }
   }
+  document.body.removeChild(probe);
+
+  titleEl.style.fontSize = lo + 'pt';
 }
 
 function fitLandscapeTitleWhenReady() {
